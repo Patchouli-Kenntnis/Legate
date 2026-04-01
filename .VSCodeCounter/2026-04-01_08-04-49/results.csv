@@ -1,0 +1,5 @@
+"filename", "language", "Docker", "pip requirements", "Markdown", "comment", "blank", "total"
+"/workspaces/Legate/Dockerfile", "Docker", 6, 0, 0, 0, 0, 6
+"/workspaces/Legate/README.md", "Markdown", 0, 0, 28, 0, 14, 42
+"/workspaces/Legate/requirements.txt", "pip requirements", 0, 2, 0, 0, 0, 2
+"Total", "-", 6, 2, 28, 0, 14, 50
