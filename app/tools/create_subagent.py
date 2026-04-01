@@ -32,7 +32,7 @@ schema = {
         "name": "create_subagent",
         "description": (
             "Spawns a subagent that runs its own independent agent loop to handle a delegated task in its own isolated context. "
-            "The subagent has access to all tools other than creating its own subagents. "
+            "The subagent has access to all tools other than creating its own subagents, including internet search, file I/O, and bash execution. Always provide clear and concise instructions when creating a subagent, and keep track of their results to integrate back into your overall plan. "
             "Use this to parallelize work, delegate complex subtasks, or isolate concerns. "
             "Returns the subagent's final response when it finishes."
         ),

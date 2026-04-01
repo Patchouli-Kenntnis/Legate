@@ -4,13 +4,13 @@ import json
 from openai import OpenAI
 
 MAX_AGENT_ITERATIONS = 32
-VERBOSE = 0
+VERBOSE = 1
 
 load_dotenv()
 openai_key = os.getenv("OPENAI_KEY")
 
 client = OpenAI(api_key=openai_key)
-GPT_MODEL = "gpt-4o"
+GPT_MODEL = "gpt-5.4-pro"
 
 
 
@@ -29,7 +29,7 @@ def subagent_loop(subagent_id: int, user_prompt: str, max_iter: int, tools: list
 
     for i in range(max_iter):
         if VERBOSE >= 1:
-            print(f"\n--- Agent {subagent_id} Iteration {i+1} ---")
+            print(f"> Subagent {subagent_id} Iteration {i+1}")
         response = client.chat.completions.create(
             model=GPT_MODEL,
             messages=messages,
