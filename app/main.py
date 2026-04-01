@@ -29,6 +29,32 @@ def run_bash(command: str) -> str:
         print(f"Error occurred while running command: {e}")
         return f"Error occurred: {e}"
 
+# an agent tool to read a file
+def read_file(path: str) -> str:
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        if DEBUG_PRINT:
+            print(f"Read file: {path}")
+            print(f"Content: {content[:MAX_CONSOLE_OUTPUT]}")
+        return content
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return f"Error occurred: {e}"
+
+# an agent tool to write a file
+def write_file(path: str, content: str) -> str:
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True) if os.path.dirname(path) else None
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+        if DEBUG_PRINT:
+            print(f"Wrote file: {path}")
+        return f"Successfully wrote {len(content)} characters to {path}"
+    except Exception as e:
+        print(f"Error writing file: {e}")
+        return f"Error occurred: {e}"
+
 run_bash_schema = {
     "type": "function",
     "function": {
@@ -45,11 +71,58 @@ run_bash_schema = {
             "required": ["command"],
         },
     }
-} 
+}
+
+read_file_schema = {
+    "type": "function",
+    "function": {
+        "name": "read_file",
+        "description": "Reads the full text content of a file at the given path and returns it as a string.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "The absolute or relative path to the file to read, e.g. '/etc/hosts' or 'src/main.py'",
+                },
+            },
+            "required": ["path"],
+        },
+    }
+}
+
+write_file_schema = {
+    "type": "function",
+    "function": {
+        "name": "write_file",
+        "description": "Writes text content to a file at the given path, creating the file (and any missing parent directories) if it does not exist, or overwriting it if it does.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "The absolute or relative path to the file to write, e.g. 'output/result.txt'",
+                },
+                "content": {
+                    "type": "string",
+                    "description": "The text content to write to the file",
+                },
+            },
+            "required": ["path", "content"],
+        },
+    }
+}
+
+TOOLS = [run_bash_schema, read_file_schema, write_file_schema]
+TOOL_HANDLERS = {
+    "run_bash": lambda args: run_bash(args["command"]),
+    "read_file": lambda args: read_file(args["path"]),
+    "write_file": lambda args: write_file(args["path"], args["content"]),
+}
 
 def main_loop(prompt: str, max_iter: int = MAX_AGENT_ITERATIONS):
     messages = [
-        {"role": "system", "content": "You are a helpful assistant that can execute bash commands using the run_bash function."},
+        {"role": "system", "content": "You are a helpful assistant that can read files, and write files using the provided functions. For other tasks, you can run bash commands using the provided function. Prioritize using read_file and write_file for file operations, and use run_bash for everything else. Always use the provided functions to interact with the system, and do not assume any prior knowledge about the file system or environment. If you need to check if a file exists, read its content, or write to a file, use the appropriate function. For any other operations, use run_bash. Always provide clear and concise commands or file paths when using the functions."},
         {"role": "user", "content": prompt},
     ]
 
@@ -58,7 +131,7 @@ def main_loop(prompt: str, max_iter: int = MAX_AGENT_ITERATIONS):
         response = client.chat.completions.create(
             model=GPT_MODEL,
             messages=messages,
-            tools=[run_bash_schema],
+            tools=TOOLS,
         )
 
         message = response.choices[0].message
@@ -70,16 +143,16 @@ def main_loop(prompt: str, max_iter: int = MAX_AGENT_ITERATIONS):
             break
 
         for tool_call in message.tool_calls:
-            if tool_call.function.name == "run_bash":
+            handler = TOOL_HANDLERS.get(tool_call.function.name)
+            if handler:
                 args = json.loads(tool_call.function.arguments)
-                command_output = run_bash(args["command"])
+                tool_output = handler(args)
                 messages.append({
                     "role": "tool",
                     "tool_call_id": tool_call.id,
-                    "content": command_output,
+                    "content": tool_output,
                 })
 if __name__ == "__main__":
-    prompt = "List the files in the current directory and then print 'Hello World'"
     while True:
         user_input = input("Enter your prompt: ")
         main_loop(user_input, MAX_AGENT_ITERATIONS)
