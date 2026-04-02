@@ -10,7 +10,7 @@ load_dotenv()
 openai_key = os.getenv("OPENAI_KEY")
 
 client = OpenAI(api_key=openai_key)
-GPT_MODEL = "gpt-4o"
+GPT_MODEL = "gpt-5.4"
 
 
 
