@@ -31,7 +31,7 @@ def read_skill(skill_name: str) -> str:
     skill_path = os.path.join(os.path.dirname(CATALOG_PATH), "..", match["path"].removeprefix("app/skills/"))
     skill_path = os.path.normpath(skill_path)
 
-    # Resolve relative to the project root if the catalog stores paths like "app/skills/..."
+    # Resolve relative to the project root as the catalog stores paths like "app/skills/..."
     if not os.path.isfile(skill_path):
         project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         skill_path = os.path.normpath(os.path.join(project_root, match["path"]))
