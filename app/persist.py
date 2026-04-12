@@ -118,7 +118,7 @@ def serialize_message(msg) -> Message:
 # ConversationManager
 # ---------------------------------------------------------------------------
 
-CONVERSATIONS_DIR = os.path.expanduser("~/.legate/conversations/")
+CONVERSATIONS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "conversations")
 
 
 class ConversationManager:
