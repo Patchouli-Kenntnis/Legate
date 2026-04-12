@@ -1,0 +1,22 @@
+name = "Python Debugging"
+intro = "Techniques and tools for diagnosing and fixing Python bugs."
+
+description = """
+When debugging Python code, follow these practices:
+
+1. **Reproduce the issue first.** Write a minimal script or test case that triggers the bug reliably before attempting a fix.
+
+2. **Read the full traceback carefully.** Start from the bottom (the actual exception) and work upward through the call stack. Note the exact exception type and message.
+
+3. **Use targeted print/logging.** Insert `print()` or `logging.debug()` calls at key decision points to inspect variable state. Remove or guard them before committing.
+
+4. **Leverage the built-in debugger.** Run `python -m pdb script.py` or insert `breakpoint()` (Python 3.7+) to pause execution and inspect the live state interactively.
+
+5. **Check types and None values.** Many bugs stem from unexpected `None` returns or type mismatches. Use `type()` and `isinstance()` checks when suspicious.
+
+6. **Isolate the failing component.** If the bug is in a large system, test the suspect function in isolation with hardcoded inputs to rule out environmental factors.
+
+7. **Diff against a known-good state.** Use `git diff` or `git stash` to compare the current code with the last working version and narrow down the offending change.
+
+8. **Search error messages verbatim.** Copy-paste the exact exception message into a web search — most Python errors have well-documented solutions.
+"""

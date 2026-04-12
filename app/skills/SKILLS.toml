@@ -1,0 +1,24 @@
+[[skills]]
+name = "Python Debugging"
+intro = "Techniques and tools for diagnosing and fixing Python bugs."
+path = "app/skills/python_debugging.toml"
+
+[[skills]]
+name = "Web Research"
+intro = "Best practices for searching the web and synthesizing information."
+path = "app/skills/web_research.toml"
+
+[[skills]]
+name = "File Management"
+intro = "Conventions for reading, writing, and organizing files safely."
+path = "app/skills/file_management.toml"
+
+[[skills]]
+name = "Bash Scripting"
+intro = "Guidelines for writing and executing shell commands safely."
+path = "app/skills/bash_scripting.toml"
+
+[[skills]]
+name = "Technical Writing"
+intro = "Principles for producing clear, structured technical documents."
+path = "app/skills/technical_writing.toml"

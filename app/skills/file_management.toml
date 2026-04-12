@@ -1,0 +1,22 @@
+name = "File Management"
+intro = "Conventions for reading, writing, and organizing files safely."
+
+description = """
+When managing files on the local system, follow these practices:
+
+1. **Always read before writing.** Before modifying a file, read its current contents to understand the existing structure and avoid accidental data loss.
+
+2. **Use absolute paths when possible.** Relative paths can break depending on the working directory. Prefer absolute paths or resolve them explicitly.
+
+3. **Create directories before writing.** Ensure parent directories exist before writing a file. Use `os.makedirs(path, exist_ok=True)` to handle this safely.
+
+4. **Prefer write_file for new content, append_file for additions.** Use write_file when you need to replace the entire file content. Use append_file when adding to existing content (e.g., logs, cumulative reports).
+
+5. **Validate file paths.** Check that paths don't contain unexpected characters or traverse outside the intended directory (e.g., `../../../etc/passwd`).
+
+6. **Keep backups of critical files.** Before overwriting an important file, consider reading its content and saving a backup copy.
+
+7. **Use descriptive filenames.** Name output files clearly so their purpose is obvious, e.g., `report_2024_q3.md` rather than `output.txt`.
+
+8. **Handle encoding explicitly.** Always specify `encoding='utf-8'` when reading or writing text files to avoid platform-dependent encoding issues.
+"""

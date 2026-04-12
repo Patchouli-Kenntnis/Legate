@@ -1,6 +1,6 @@
-from . import run_bash, read_file, write_file, append_file, update_planner, web_search, create_subagent
+from . import run_bash, read_file, write_file, append_file, update_planner, web_search, create_subagent, read_skill
 
-subagent_modules = [run_bash, read_file, write_file, append_file, web_search]
+subagent_modules = [run_bash, read_file, write_file, append_file, web_search, read_skill]
 primary_agent_module = subagent_modules + [create_subagent, update_planner]
 
 SUBAGENT_TOOLS = [m.schema for m in subagent_modules]

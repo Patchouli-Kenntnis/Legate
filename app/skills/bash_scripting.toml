@@ -1,0 +1,22 @@
+name = "Bash Scripting"
+intro = "Guidelines for writing and executing shell commands safely."
+
+description = """
+When executing bash commands, follow these practices:
+
+1. **Use simple, single-purpose commands.** Break complex operations into individual commands rather than chaining many operations with `&&` or `;`.
+
+2. **Quote all variables.** Always use double quotes around variables (`"$var"`) to prevent word splitting and glob expansion issues.
+
+3. **Check command availability.** Use `which` or `command -v` to verify that a required tool is installed before attempting to use it.
+
+4. **Limit output size.** Pipe large outputs through `head`, `tail`, or `grep` to avoid overwhelming the context with unnecessary data.
+
+5. **Avoid destructive commands without confirmation.** Never run `rm -rf`, `dd`, or similar destructive commands without explicit user approval. Prefer moving files to a temporary location over deletion.
+
+6. **Use timeouts for network operations.** Commands like `curl` or `wget` should include `--timeout` or `--max-time` flags to prevent hanging.
+
+7. **Capture both stdout and stderr.** Redirect or capture both streams to get complete diagnostic information when a command fails.
+
+8. **Prefer built-in tools.** Use tools available in the standard environment (grep, awk, sed, find, sort) before installing external dependencies.
+"""

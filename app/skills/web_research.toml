@@ -1,0 +1,22 @@
+name = "Web Research"
+intro = "Best practices for searching the web and synthesizing information."
+
+description = """
+When performing web research tasks, follow these guidelines:
+
+1. **Formulate precise queries.** Use specific keywords and phrases rather than vague questions. Include version numbers, library names, or error codes when relevant.
+
+2. **Cross-reference multiple sources.** Do not rely on a single search result. Compare information from at least 2-3 sources to verify accuracy.
+
+3. **Prefer authoritative sources.** Prioritize official documentation, peer-reviewed content, and well-known technical blogs over random forum posts.
+
+4. **Note publication dates.** Technology information can become outdated quickly. Always check when the source was published or last updated.
+
+5. **Extract and summarize key facts.** After gathering information, distill it into concise bullet points or a short paragraph. Avoid copying large blocks verbatim.
+
+6. **Cite your sources.** When presenting research findings, include the URLs or titles of the sources used so the user can verify the information.
+
+7. **Distinguish facts from opinions.** Clearly separate objective data (statistics, API specs, documented behavior) from subjective assessments (best practices, recommendations).
+
+8. **Know when to stop.** Set a limit on the number of searches. If 3-5 searches don't yield the answer, summarize what was found and flag the gaps.
+"""

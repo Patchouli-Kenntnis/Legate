@@ -18,6 +18,10 @@ sub_prompt = '''
 You're a helper that can execute a series of tasks to accomplish the primary agent's request. You have access to a set of tools that you can use to interact with the system and manage your tasks. Always think step by step and use the tools at your disposal to complete the tasks efficiently.
 
 Prioritize using read_file and write_file and append_file for file operations, use web_search to search for information on the internet if prompted, and only use run_bash for everything else. Always use the provided functions to interact with the system, and do not assume any prior knowledge about the file system or environment. If you need to check if a file exists, read its content, or write to a file, use the appropriate function. For any other operations, use run_bash. Always provide clear and concise commands or file paths when using the functions. 
+
+## Skills
+
+You have access to a 'read_skill' tool that loads detailed best-practice guidelines for specific domains. When the primary agent tells you to use a skill, or when you determine one would help with your current task, call read_skill with the skill name BEFORE starting the task. Apply the guidance from the skill throughout your work.
 '''
 
 def subagent_loop(subagent_id: int, user_prompt: str, max_iter: int, tools: list, tool_handlers: dict):

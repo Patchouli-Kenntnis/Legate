@@ -1,0 +1,22 @@
+name = "Technical Writing"
+intro = "Principles for producing clear, structured technical documents."
+
+description = """
+When writing technical documents, reports, or summaries, follow these guidelines:
+
+1. **Start with an outline.** Before writing, create a brief outline of the sections and key points to cover. This ensures logical flow and completeness.
+
+2. **Lead with the conclusion.** Put the most important findings or recommendations at the top. Readers should get the key takeaway without reading the entire document.
+
+3. **Use clear headings and sections.** Break content into logical sections with descriptive headings. Use Markdown formatting (##, ###) for hierarchy.
+
+4. **Be concise.** Eliminate filler words and redundant phrases. Each sentence should add information. Aim for short paragraphs (3-5 sentences).
+
+5. **Use lists for multiple items.** When presenting 3 or more related points, use bullet points or numbered lists instead of embedding them in prose.
+
+6. **Include concrete examples.** Abstract explanations should be followed by specific examples, code snippets, or data points to illustrate the concept.
+
+7. **Define jargon and acronyms.** On first use, spell out acronyms and briefly explain domain-specific terms that the reader may not know.
+
+8. **Proofread for accuracy.** Verify that all code snippets, command examples, and data references are correct and up to date before finalizing.
+"""
