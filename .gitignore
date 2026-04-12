@@ -1,3 +1,4 @@
 *.env
 ./testdata/*
 *__pycache__*
+./out

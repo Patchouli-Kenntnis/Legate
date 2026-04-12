@@ -1,0 +1,545 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/workspaces/Legate",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2026-04-12 15:49:04",
+            "filesum": 79,
+            "codesum": 1226,
+            "commentsum": 95,
+            "blanksum": 437,
+            "statistics": {
+                ".txt": {
+                    "code": 224,
+                    "comment": 5,
+                    "blank": 98
+                },
+                "": {
+                    "code": 29,
+                    "comment": 1,
+                    "blank": 4
+                },
+                ".md": {
+                    "code": 181,
+                    "comment": 0,
+                    "blank": 92
+                },
+                ".json": {
+                    "code": 10,
+                    "comment": 14,
+                    "blank": 5
+                },
+                ".py": {
+                    "code": 726,
+                    "comment": 75,
+                    "blank": 229
+                },
+                ".csv": {
+                    "code": 21,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".toml": {
+                    "code": 35,
+                    "comment": 0,
+                    "blank": 9
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 5,
+                    "code": 7,
+                    "comment": 14,
+                    "filename": ".devcontainer/devcontainer.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 1,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 6,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/details.md"
+                },
+                {
+                    "blank": 6,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/diff-details.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/diff.csv"
+                },
+                {
+                    "blank": 7,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/diff.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/diff.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/results.csv"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/results.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/results.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-04/results.txt"
+                },
+                {
+                    "blank": 6,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/details.md"
+                },
+                {
+                    "blank": 6,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/diff-details.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/diff.csv"
+                },
+                {
+                    "blank": 7,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/diff.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/diff.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/results.csv"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/results.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/results.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-04-49/results.txt"
+                },
+                {
+                    "blank": 6,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/details.md"
+                },
+                {
+                    "blank": 6,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/diff-details.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/diff.csv"
+                },
+                {
+                    "blank": 7,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/diff.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/diff.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/results.csv"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/results.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/results.md"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": ".VSCodeCounter/2026-04-01_08-06-09/results.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "app/.env"
+                },
+                {
+                    "filename": "app/__pycache__/agent.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/config.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/conversation.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/main.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/persist.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/planner.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/planner.cpython-313.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/__pycache__/prompts.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 33,
+                    "code": 114,
+                    "comment": 13,
+                    "filename": "app/agent.py"
+                },
+                {
+                    "blank": 6,
+                    "code": 12,
+                    "comment": 3,
+                    "filename": "app/config.py"
+                },
+                {
+                    "blank": 24,
+                    "code": 85,
+                    "comment": 4,
+                    "filename": "app/main.py"
+                },
+                {
+                    "blank": 51,
+                    "code": 108,
+                    "comment": 10,
+                    "filename": "app/persist.py"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 5,
+                    "filename": "app/planner.py"
+                },
+                {
+                    "blank": 11,
+                    "code": 22,
+                    "comment": 38,
+                    "filename": "app/prompts.py"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "app/skills/bash_scripting.toml"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "app/skills/file_management.toml"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "app/skills/python_debugging.toml"
+                },
+                {
+                    "blank": 4,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "app/skills/SKILLS.toml"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "app/skills/technical_writing.toml"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "app/skills/web_research.toml"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "app/tools/__init__.py"
+                },
+                {
+                    "filename": "app/tools/__pycache__/__init__.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/append_file.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/create_subagent.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/read_file.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/read_skill.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/run_bash.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/update_planner.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/web_search.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "app/tools/__pycache__/write_file.cpython-312.pyc",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 6,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "app/tools/append_file.py"
+                },
+                {
+                    "blank": 14,
+                    "code": 38,
+                    "comment": 1,
+                    "filename": "app/tools/create_subagent.py"
+                },
+                {
+                    "blank": 5,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "app/tools/read_file.py"
+                },
+                {
+                    "blank": 20,
+                    "code": 55,
+                    "comment": 1,
+                    "filename": "app/tools/read_skill.py"
+                },
+                {
+                    "blank": 6,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "app/tools/run_bash.py"
+                },
+                {
+                    "blank": 31,
+                    "code": 83,
+                    "comment": 0,
+                    "filename": "app/tools/update_planner.py"
+                },
+                {
+                    "blank": 6,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "app/tools/web_search.py"
+                },
+                {
+                    "blank": 6,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "app/tools/write_file.py"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "Dockerfile"
+                },
+                {
+                    "blank": 4,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "LICENSE"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "requirements.txt"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "summary.md"
+                },
+                {
+                    "blank": 75,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "testdata/egg.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "testdata/egg_sum.txt"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 5,
+                    "filename": "testdata/largest_cities_weather_forecast.txt"
+                },
+                {
+                    "blank": 10,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "testdata/strategic_plan_ukraine.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "testdata/temperature_data.txt"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "testdata/transformer_summary.md"
+                }
+            ]
+        }
+    ]
+}
