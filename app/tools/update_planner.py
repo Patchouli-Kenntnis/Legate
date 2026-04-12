@@ -9,6 +9,21 @@ DEBUG_PRINT = True
 _planner_instance = Planner()
 
 
+def get_planner_instance():
+    """Return the shared planner singleton for save/restore."""
+    return _planner_instance
+
+
+def set_planner_state(data: list) -> None:
+    """Restore the planner singleton's todolist from serialized data."""
+    _planner_instance.from_list(data)
+
+
+def reset_planner() -> None:
+    """Clear the planner singleton for a fresh conversation."""
+    _planner_instance.todolist = []
+
+
 def update_planner(action: str, steps_text: str = "", step_index: int = -1, new_status: int = 0) -> str:
     """
     Interact with the shared planner instance.

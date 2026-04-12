@@ -26,3 +26,16 @@ class planner:
         if 0 <= step_index < len(self.todolist):
             step, _ = self.todolist[step_index]
             self.todolist[step_index] = (step, new_status)
+
+    def to_list(self) -> list:
+        """Return the todolist as a list of (text, status) tuples for serialization."""
+        return list(self.todolist)
+
+    def from_list(self, data: list) -> None:
+        """Restore the todolist from a list of (text, status) pairs or PlannerStep-like dicts."""
+        self.todolist = []
+        for item in data:
+            if isinstance(item, dict):
+                self.todolist.append((item["text"], item["status"]))
+            elif isinstance(item, (list, tuple)) and len(item) == 2:
+                self.todolist.append((item[0], item[1]))

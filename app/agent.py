@@ -1,41 +1,134 @@
-from dotenv import load_dotenv
-import os
+"""Primary and subagent loops that drive LLM ↔ tool-call execution."""
+
 import json
 from openai import OpenAI
 
-MAX_AGENT_ITERATIONS = 32
-VERBOSE = 1
+from config import (
+    OPENAI_KEY, GPT_MODEL, GPT_MODEL_SUB, MAX_AGENT_ITERATIONS, VERBOSE,
+)
+from prompts import PRIMARY_SYSTEM_PROMPT, SUBAGENT_SYSTEM_PROMPT
+from tools import PRIMARY_TOOLS, PRIMARY_TOOL_HANDLERS
+from tools.update_planner import get_planner_instance
+from persist import (
+    ConversationData, ConversationManager, PlannerStep, serialize_message,
+)
 
-load_dotenv()
-openai_key = os.getenv("OPENAI_KEY")
-
-client = OpenAI(api_key=openai_key)
-GPT_MODEL = "gpt-5.4-pro"
+_client = None
 
 
+def _get_client() -> OpenAI:
+    global _client
+    if _client is None:
+        _client = OpenAI(api_key=OPENAI_KEY)
+    return _client
 
-sub_prompt = '''
-You're a helper that can execute a series of tasks to accomplish the primary agent's request. You have access to a set of tools that you can use to interact with the system and manage your tasks. Always think step by step and use the tools at your disposal to complete the tasks efficiently.
 
-Prioritize using read_file and write_file and append_file for file operations, use web_search to search for information on the internet if prompted, and only use run_bash for everything else. Always use the provided functions to interact with the system, and do not assume any prior knowledge about the file system or environment. If you need to check if a file exists, read its content, or write to a file, use the appropriate function. For any other operations, use run_bash. Always provide clear and concise commands or file paths when using the functions. 
+# ---------------------------------------------------------------------------
+# Primary agent loop
+# ---------------------------------------------------------------------------
 
-## Skills
+def primary_agent_loop(
+    user_prompt: str,
+    conv: ConversationData,
+    max_iter: int = MAX_AGENT_ITERATIONS,
+):
+    # Build message list from saved conversation history (as plain dicts for the API)
+    messages = [m.model_dump(exclude_none=True) for m in conv.messages]
 
-You have access to a 'read_skill' tool that loads detailed best-practice guidelines for specific domains. When the primary agent tells you to use a skill, or when you determine one would help with your current task, call read_skill with the skill name BEFORE starting the task. Apply the guidance from the skill throughout your work.
-'''
+    # If this is a fresh conversation, prepend system prompt + first user message
+    if not messages:
+        messages = [
+            {"role": "system", "content": PRIMARY_SYSTEM_PROMPT},
+            {"role": "user", "content": user_prompt},
+        ]
+    else:
+        # Continuing — add the new user message
+        messages.append({"role": "user", "content": user_prompt})
 
-def subagent_loop(subagent_id: int, user_prompt: str, max_iter: int, tools: list, tool_handlers: dict):
-    
+    state = conv.state
+
+    for i in range(max_iter):
+        print(f"\n--- Iteration {i+1} ---")
+
+        # Inject current state so the model can plan accordingly
+        state_msg = (
+            f"[STATE] iteration={state.completed_iter}/{state.max_iter} | "
+            f"tokens_used={state.used_tokens}/{state.max_token_budget} | "
+            f"context_window={state.context_window}"
+        )
+        messages.append({"role": "user", "content": state_msg})
+
+        response = _get_client().chat.completions.create(
+            model=GPT_MODEL,
+            messages=messages,
+            tools=PRIMARY_TOOLS,
+        )
+
+        message = response.choices[0].message
+        print(f"Model response: {message.content}")
+        messages.append(message)
+
+        # Update state after each iteration
+        if response.usage:
+            state.used_tokens += response.usage.total_tokens
+        state.completed_iter = i + 1
+        print(f"State: tokens={state.used_tokens}/{state.max_token_budget}, iter={state.completed_iter}/{max_iter}")
+
+        # Persist conversation after every iteration
+        _save_conversation(conv, messages)
+
+        if state.used_tokens >= state.max_token_budget:
+            print("Token budget exceeded. Stopping agent.")
+            break
+
+        if not message.tool_calls:
+            print("No tool calls found in the response. Ending loop.")
+            break
+
+        for tool_call in message.tool_calls:
+            handler = PRIMARY_TOOL_HANDLERS.get(tool_call.function.name)
+            if handler:
+                args = json.loads(tool_call.function.arguments)
+                tool_output = handler(args)
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "content": tool_output,
+                })
+
+        # Save again after tool outputs
+        _save_conversation(conv, messages)
+
+
+def _save_conversation(conv: ConversationData, messages: list) -> None:
+    """Snapshot messages + planner into the ConversationData and persist to disk."""
+    conv.messages = [serialize_message(m) for m in messages]
+    planner = get_planner_instance()
+    conv.planner = [PlannerStep(text=t, status=s) for t, s in planner.to_list()]
+    ConversationManager.save(conv)
+
+
+# ---------------------------------------------------------------------------
+# Subagent loop
+# ---------------------------------------------------------------------------
+
+def subagent_loop(
+    subagent_id: int,
+    user_prompt: str,
+    max_iter: int,
+    tools: list,
+    tool_handlers: dict,
+):
     messages = [
-        {"role": "system", "content": sub_prompt},
-        {"role": "user", "content": user_prompt}
+        {"role": "system", "content": SUBAGENT_SYSTEM_PROMPT},
+        {"role": "user", "content": user_prompt},
     ]
 
     for i in range(max_iter):
         if VERBOSE >= 1:
             print(f"> Subagent {subagent_id} Iteration {i+1}")
-        response = client.chat.completions.create(
-            model=GPT_MODEL,
+        response = _get_client().chat.completions.create(
+            model=GPT_MODEL_SUB,
             messages=messages,
             tools=tools,
         )

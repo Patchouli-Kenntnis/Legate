@@ -8,7 +8,8 @@ def create_subagent(user_prompt: str) -> str:
 
     # Deferred to avoid circular import: tools/__init__.py → create_subagent → agent → tools
     from tools import SUBAGENT_TOOLS, SUBAGENT_TOOL_HANDLERS
-    from agent import subagent_loop, MAX_AGENT_ITERATIONS
+    from agent import subagent_loop
+    from config import MAX_AGENT_ITERATIONS
 
     _subagent_counter += 1
     subagent_id = _subagent_counter
