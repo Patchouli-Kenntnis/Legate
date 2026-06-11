@@ -7,6 +7,7 @@ against ``~/.legate/conversations/``.
 
 from __future__ import annotations
 
+import json
 import os
 import uuid
 from datetime import datetime, timezone
@@ -66,6 +67,7 @@ class AgentState(BaseModel):
     completed_iter: int = 0
     max_iter: int = 32
     context_window: int = 1_050_000
+    context_tokens: int = 0  # size of the live context per the latest API usage report
 
 
 class ConversationData(BaseModel):
@@ -82,6 +84,7 @@ class ConversationData(BaseModel):
     model: str
     state: AgentState
     planner: list[PlannerStep]
+    notes: list[str] = []
     messages: list[Message]
 
 
@@ -119,6 +122,18 @@ def serialize_message(msg) -> Message:
 # ---------------------------------------------------------------------------
 
 CONVERSATIONS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "conversations")
+
+
+def archive_path(conv_id: str) -> str:
+    """Path of the JSONL archive holding messages evicted/compacted out of the live context."""
+    return os.path.join(CONVERSATIONS_DIR, f"{conv_id}.archive.jsonl")
+
+
+def append_archive(conv_id: str, entry: dict) -> None:
+    """Append one archived message (plus metadata such as 'iteration') to the archive JSONL."""
+    os.makedirs(CONVERSATIONS_DIR, exist_ok=True)
+    with open(archive_path(conv_id), "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False, default=str) + "\n")
 
 
 class ConversationManager:
@@ -180,7 +195,9 @@ class ConversationManager:
 
     @staticmethod
     def delete(conv_id: str) -> None:
-        """Remove a conversation's JSON file from disk."""
+        """Remove a conversation's JSON file (and its archive, if any) from disk."""
         path = os.path.join(CONVERSATIONS_DIR, f"{conv_id}.json")
         if os.path.exists(path):
             os.remove(path)
+        if os.path.exists(archive_path(conv_id)):
+            os.remove(archive_path(conv_id))

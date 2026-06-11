@@ -5,6 +5,15 @@ class planner:
     def __init__(self):
         # todolist is a list of steps that the planner has generated for the task. Each step is a tuple of a string that describes the step, and an integer that indicates the step's status: 0, incomplete; 1, complete; -1, failed.
         self.todolist = []
+        # notes is a list of free-form findings/decisions recorded while working; they survive
+        # context compaction and can replace an LLM summary call when substantial enough.
+        self.notes = []
+
+    def add_note(self, text: str):
+        self.notes.append(text)
+
+    def notes_text(self) -> str:
+        return "\n".join(f"- {n}" for n in self.notes)
         
     def add_steps(self, steps_text: str):
         # The LLM in planning mode will generate a list of steps in the form of a numbered list separated by newlines, e.g. "1. Step one\n2. Step two\n3. Step three". This function takes that text and adds each step to the todolist as an incomplete step.

@@ -19,12 +19,18 @@ def set_planner_state(data: list) -> None:
     _planner_instance.from_list(data)
 
 
+def set_planner_notes(notes: list) -> None:
+    """Restore the planner singleton's notes from serialized data."""
+    _planner_instance.notes = list(notes)
+
+
 def reset_planner() -> None:
     """Clear the planner singleton for a fresh conversation."""
     _planner_instance.todolist = []
+    _planner_instance.notes = []
 
 
-def update_planner(action: str, steps_text: str = "", step_index: int = -1, new_status: int = 0) -> str:
+def update_planner(action: str, steps_text: str = "", step_index: int = -1, new_status: int = 0, note_text: str = "") -> str:
     """
     Interact with the shared planner instance.
 
@@ -55,14 +61,25 @@ def update_planner(action: str, steps_text: str = "", step_index: int = -1, new_
             print(f"[update_planner] Step {step_index} marked {status_label}.")
         return f"Step {step_index} marked {status_label}. Current plan:\n{_planner_instance.stringify()}"
 
+    elif action == "add_note":
+        if not note_text:
+            return "Error: 'note_text' is required for action 'add_note'."
+        _planner_instance.add_note(note_text)
+        if DEBUG_PRINT:
+            print(f"[update_planner] Added note: {note_text[:120]}")
+        return f"Note recorded ({len(_planner_instance.notes)} total)."
+
     elif action == "get_state":
         state = _planner_instance.stringify()
+        notes = _planner_instance.notes_text()
+        if notes:
+            state = f"{state}\n\nNotes:\n{notes}" if state else f"Notes:\n{notes}"
         if DEBUG_PRINT:
             print(f"[update_planner] Retrieved state.")
         return state if state else "The plan is currently empty."
 
     else:
-        return f"Error: Unknown action '{action}'. Valid actions are 'add_steps', 'update_state', 'get_state'."
+        return f"Error: Unknown action '{action}'. Valid actions are 'add_steps', 'update_state', 'add_note', 'get_state'."
 
 
 schema = {
@@ -72,18 +89,20 @@ schema = {
         "description": (
             "Manages the agent's shared planner instance. Use 'add_steps' to populate the plan "
             "with a numbered list of steps, 'update_state' to mark a step as complete, incomplete, "
-            "or failed, and 'get_state' to retrieve the current plan with all step statuses."
+            "or failed, 'add_note' to record an important finding or decision (notes survive "
+            "context compaction), and 'get_state' to retrieve the current plan and notes."
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "action": {
                     "type": "string",
-                    "enum": ["add_steps", "update_state", "get_state"],
+                    "enum": ["add_steps", "update_state", "add_note", "get_state"],
                     "description": (
                         "'add_steps': append steps from a numbered-list string. "
                         "'update_state': change the status of a specific step. "
-                        "'get_state': return the full current plan."
+                        "'add_note': record a key finding or decision that should survive compaction. "
+                        "'get_state': return the full current plan and notes."
                     ),
                 },
                 "steps_text": {
@@ -107,6 +126,13 @@ schema = {
                         "0 = incomplete, 1 = complete, -1 = failed."
                     ),
                 },
+                "note_text": {
+                    "type": "string",
+                    "description": (
+                        "Required for 'add_note'. A concise statement of a key finding, decision, "
+                        "or result worth preserving across context compaction."
+                    ),
+                },
             },
             "required": ["action"],
         },
@@ -118,4 +144,5 @@ handler = lambda args: update_planner(
     steps_text=args.get("steps_text", ""),
     step_index=args.get("step_index", -1),
     new_status=args.get("new_status", 0),
+    note_text=args.get("note_text", ""),
 )

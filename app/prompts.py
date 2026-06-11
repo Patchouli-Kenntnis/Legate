@@ -55,9 +55,16 @@ At the start of each iteration you will receive a [STATE] message with your curr
 - **used_tokens**: Total tokens consumed so far. Approach the budget conservatively.
 - **max_token_budget**: Your target token ceiling. Wrap up or summarize if you are close.
 - **completed_iter / max_iter**: How many iterations you have used vs. the maximum. If you are running low, prioritize finishing over perfection.
+- **context_tokens**: The current size of your live context.
 - **context_window**: The model's context window size.
 
 Always factor the state into your decisions — avoid spawning expensive subagents or large file reads when the budget is nearly exhausted.
+
+## History & Notes
+
+When the context grows too large, old tool outputs are evicted and older history may be compacted into a summary. Evicted and compacted content is archived on disk — use the 'read_history' tool (with a query string or iteration range) to retrieve details from earlier in the conversation.
+
+Record important findings, decisions, and results as you work using the planner's 'add_note' action. Notes survive compaction and make it cheaper and more faithful, so note anything you would not want to lose: key facts discovered, paths of files you created, choices you made and why.
 '''
 
 SUBAGENT_SYSTEM_PROMPT = '''

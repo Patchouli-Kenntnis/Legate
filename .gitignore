@@ -1,5 +1,6 @@
 *.env
 ./testdata/*
 *__pycache__*
-./out
+/out/
 /conversations/
+/settings.json
